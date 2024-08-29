@@ -5,8 +5,10 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import "./tailwind.css";
+import { InterviewProvider } from "./store/appContext";
 
-export default function App() {
+export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -15,11 +17,17 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
+      <body className="bg-gray-100">
+        <InterviewProvider>
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+        </InterviewProvider>
       </body>
     </html>
   );
+}
+
+export default function App() {
+  return <Outlet />;
 }
